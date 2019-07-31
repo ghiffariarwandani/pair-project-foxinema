@@ -1,0 +1,32 @@
+[
+    {
+        "seats" : 50,
+        "title" : "Lion King",
+        "date" : "2019-08-20",
+        "image" : ""
+    },
+    {
+        "seats" : 30,
+        "title" : "Dua Garis Biru",
+        "date" : "2019-08-20",
+        "image" : ""
+    },
+    {
+        "seats" : 60,
+        "title" : "Spiderman Far From Home",
+        "date" : "2019-08-20",
+        "image" : ""
+    },
+    {
+        "seats" : 30,
+        "title" : "The Avengers",
+        "date" : "2019-08-20",
+        "image" : ""
+    },
+    {
+        "seats" : 50,
+        "title" : "Man In Black",
+        "date" : "2019-08-20",
+        "image" : ""
+    }
+]
