@@ -1,10 +1,9 @@
 
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,15 +14,21 @@
   </head>
 
   <body>
-
+    <%- include('../partials/navbar') %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Your movies...</h1>
+          <right><h2>Hello, <%=data[0].User.name%></h2></right>
+          <h3>Your balance : <%=data[0].User.balance.toLocaleString('en-ID', {style: 'currency', currency: 'IDR'})%></h3>
+          
+          <br><br>
             <%data.forEach(e=>{%>
                 <div class="row placeholders">
                         <div class="col-xs-6 col-sm-3 placeholder">
-                          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
+                          <img src= "<%= e.Movie.image %>" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
                           <h4><%=e.Movie.title%></h4>
-                          <span class="text-muted"><a href="/user/detailBooking/<%=e.id%>/<%=e.Movie.id%>/<%=e.User.id%>">Detail</a> | <a href= "/user/cancelBooking/<%=e.id%>/<%=e.User.id%>">Cancel Reservation</a></span>
+                          <span class="text-muted"><a href="/user/detailBooking/<%=e.id%>/<%=e.Movie.id%>/<%=e.User.id%>">Detail</a> | <a href= "/user/cancelBooking/<%=e.id%>/<%=e.User.id%>">Cancel</a>
+                           | <a href="/movie/<%=e.Movie.id%>">About Movie</a>
+                          </span>
                         </div>
             <%})%>
             <%if(seats){%>

@@ -1,7 +1,12 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
-  class Movie extends Model {}
+  class Movie extends Model {
+    updateSeats(numSeats){
+      this.seats += numSeats
+      this.save()
+    }
+  }
   Movie.init({
     seats: DataTypes.INTEGER,
     title: DataTypes.STRING,
