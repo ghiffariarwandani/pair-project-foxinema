@@ -4,141 +4,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
         body {
-            background-color: #ff4466;
+            background: white;
+            background-position: 0px 0px;
+            background-repeat: no-repeat;
+            overflow: hidden;
         }
 
-        .outersquare {
-            height: 700px;
-            width: 30%;
-            border-radius: 10px;
-            margin-left: 25%;
-            margin-top: 5%;
-            background-color: #ffcc00;
-            box-shadow: #333 -30px 36px 1px;
+        .centerImg {
+            height: 100%;
+            background: url(https://image.spreadshirtmedia.com/image-server/v1/mp/compositions/T127A1MPA215PT21X8Y6D1017015788FS4322/views/1,width=550,height=550,appearanceId=1,backgroundColor=FFFFFF,noPt=true,version=1550269864/fox-drawing-art-painting-fox-small-buttons.jpg) no-repeat fixed center center;
+            opacity: 1;
+            animation: lowPoly 6.3s ease-in infinite;
         }
 
-        ul li {
-            list-style-type: none;
-            position: relative;
-            top: 100px;
-            margin-left: -35%;
+        @keyframes lowPoly {
+            25% {
+                opacity: 0.25;
+            }
+
+            50% {
+                opacity: 0.50;
+            }
+
+            75% {
+                opacity: 0.75;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
-        ul li a {
-            text-decoration: none;
-            font-size: 1.10em;
-            font-family: calibri;
-            letter-spacing: 1px;
+        .container {
+            height: 800px;
         }
 
-        ul li:hover a {
-            border-bottom: 1px solid #fff;
-        }
+        #typewriter {
+            font-size: 50px;
+            color: #232931;
+            font-family: 'Raleway', sans-serif;
+            letter-spacing: 1.5px;
 
-        .nav-menu {
-            margin-top: -30%;
-            display: block;
-            text-align: center;
-            padding: 5px;
-            margin-right: 5%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-490%);
+
         }
 
         button {
-            border: none;
-            border-radius: 7px;
-            position: relative;
-            font-size: 0.9em;
-            background-color: #fff;
-            margin-top: 2%;
-            padding: 10px;
-            letter-spacing: 1px;
-        }
-
-        button:hover {
-            background-color: #ddd;
-            color: #fff;
-        }
-
-
-        h1 {
-            font-family: aharoni;
-            font-size: 5em;
-            text-align: center;
-            position: relative;
-            top: 150px;
-            color: #fff;
-            margin-left: 2%;
-        }
-
-        .menu-trigger {
-            display: block;
-            padding: 10px;
-            border-radius: 1px;
-            margin-left: 17%;
-            margin-top: 5%;
-            width: 60%;
-            color: #fff;
-            font-family: aharoni;
-            letter-spacing: 5px;
-            font-weight: 500;
-            background-color: #009688;
-            opacity: .7;
-            text-align: center;
-            font-size: 1.9em;
-            cursor: pointer;
-            line-height: 95px;
-        }
-
-        .menu-trigger:hover {
-            background-color: #444;
-        }
-
-        div .nav-menu {
-            display: none;
-        }
-
-        div .nav-menu ul li {
-            display: block;
-        }
-
-        div .nav-menu ul li:hover {
-            border-bottom: none;
-        }
-
-        a {
-            color: #fff;
-        }
-
-        div .nav-expanded {
-            display: block;
-            margin-left: 15%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-1290%);
+            background-color: white
         }
     </style>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Foxinema</title>
 </head>
 
 <body>
 
-    <div class="outersquare">
-        <span class="menu-trigger"></span>
-        <div>
-            <div class="nav-menu">
-                <ul class="clearfix">
-                    <li class="nav-item"><a href="#">About</a></li>
-                    <li class="nav-item"><a href="#">Services</a></li>
-                    <li class="nav-item"><a href="#">Our work</a></li>
-                    <li class="nav-item"><a href="#">Contact</a></li>
-                    <li class="nav-item"><button>Sign Up</button></li>
-                </ul>
-            </div>
-            <div>
-                <h1>Hello.</h1>
-            </div>
-        </div>
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+    <div class="container">
+        <div class="centerImg"></div>
+        <div id="typewriter"></div>
     </div>
+    <br><br><br><br><br>
+    <a href="/movie"> <button
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            MOVIE AND CHILL
+        </button> </a>
+    <script>
+        var str = "FOXINEMA ",
+            i = 0,
+            isTag,
+            text;
+
+        (function type() {
+            text = str.slice(0, ++i);
+            if (text === str) return;
+
+            document.getElementById('typewriter').innerHTML = text;
+
+            var char = text.slice(-1);
+            if (char === '<') isTag = true;
+            if (char === '>') isTag = false;
+
+            if (isTag) return type();
+            setTimeout(type, 150);
+        }());
+    </script>
 </body>
 
 </html>

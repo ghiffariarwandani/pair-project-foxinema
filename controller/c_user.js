@@ -7,7 +7,7 @@ const {
 const bcrypt = require('bcrypt')
 class ControllerUser {
     static formLogin(req, res) {
-        res.render('user/login')
+        res.render('user/login', {success: req.flash('info')})
     }
 
     static login(req, res) {
@@ -19,21 +19,20 @@ class ControllerUser {
             .then(data => {
                 if (data) {
                     if (bcrypt.compareSync(req.body.password, data.password)) {
-
                         req.session.UserId = data.id
                         req.session.name = data.name
                         req.session.balance = data.balance
                         req.session.email = data.email
+                        req.flash('info', `welcome ${data.name}`)
                         res.redirect(`/user`)
                     } else {
-                        res.flash('info', 'Username/Password is wrong', 'warn')
-                        res.redirect('/user/login')
-
+                        throw new Error('wrong password/username')
                     }
                 }
             })
             .catch(err => {
-                res.send(err)
+                req.flash('err', `${err.message}`)
+                res.redirect('/user/login')
             })
     }
 
