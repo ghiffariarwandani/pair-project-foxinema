@@ -24,12 +24,12 @@ class ControllerUser {
                         req.session.name = data.name
                         req.session.balance = data.balance
                         req.session.email = data.email
-                        res.redirect(`/user/${req.session.UserId}`)
+                        res.redirect(`/user`)
                     } else {
-                        res.send('gagal login')
+                        res.flash('info', 'Username/Password is wrong', 'warn')
+                        res.redirect('/user/login')
+
                     }
-                } else {
-                    res.send('data ga ada woy')
                 }
             })
             .catch(err => {
@@ -63,17 +63,17 @@ class ControllerUser {
                 include: [{
                     model: User,
                     where: {
-                        id: req.params.UserId
+                        id: req.session.UserId
                     }
                 }, {
                     model: Movie
                 }]
             })
             .then(data => {
-                //res.send(data)
-                res.render('user/users', {
+                res.render('user/dashboard', {
                     data: data,
-                    seats: null
+                    seats: null,
+                    session: req.session
                 })
             })
             .catch(err => {
@@ -88,7 +88,7 @@ class ControllerUser {
                     include: [{
                         model: User,
                         where: {
-                            id: req.params.UserId
+                            id: req.session.UserId
                         }
                     }, {
                         model: Movie
@@ -111,10 +111,11 @@ class ControllerUser {
                 let movie = data[2]
                 let all = data[0]
 
-                res.render('user/users', {
+                res.render('user/dashboard', {
                     data: all,
                     seats: seats,
-                    movie: movie
+                    movie: movie,
+                    session: req.session
                 })
                 //res.send({data:all, seats:seats, movie:movie})
 
@@ -141,39 +142,41 @@ class ControllerUser {
                 Movie.findByPk(movieId)
                     .then(mov => {
                         mov.updateSeats(numSeats)
-                        return User.findByPk(req.params.UserId)
+                        return User.findByPk(req.session.UserId)
                     })
-                    .then(user => {
-                        let balance = numSeats * 40000
-                        user.refundBalance(balance)
+                    .catch(err => {
+                        res.send(err)
                     })
-                    .catch(err => res.send(err))
 
-            })
-            .catch(err => {
-                res.send(err)
-            })
-
-        UserMovie.findByPk(req.params.UserMovieId)
-        Seat.destroy({
-                where: {
-                    'UserMovieId': req.params.UserMovieId
-                }
-            }).then(() => {
-                return UserMovie.destroy({
-                    where: {
-                        id: req.params.UserMovieId
-                    },
-                    cascade: true
-                })
+                UserMovie.findByPk(req.params.UserMovieId)
+                Seat.destroy({
+                        where: {
+                            'UserMovieId': req.params.UserMovieId
+                        }
+                    }).then(() => {
+                        return UserMovie.destroy({
+                            where: {
+                                id: req.params.UserMovieId
+                            },
+                            cascade: true
+                        })
+                    })
+                    .then(() => {
+                        redirect(`/user/${req.params.UserId}`)
+                    })
             })
             .then(() => {
-                redirect(`/user/${req.params.UserId}`)
+                redirect(`/user/`)
             })
             .catch(err => {
                 res.send(err)
             })
 
+    }
+
+    static logout(req, res) {
+        req.session.destroy
+        res.redirect('/')
     }
 
 }

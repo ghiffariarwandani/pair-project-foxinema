@@ -9,7 +9,12 @@
             <div class="navbar-nav ml-auto">
                 <a class="nav-item nav-link page-scroll" href="/movie">Movies</a>
                 <a class="nav-item nav-link page-scroll" href="/cinema">Cinemas</a>
-                <a class="nav-item nav-link page-scroll" href="/user/login">Login</a>
+                <%if(session.UserId){%>
+                    <a class="nav-item nav-link page-scroll" href="/user/logout">Logout</a>
+                <%}else{%>
+                    <a class="nav-item nav-link page-scroll" href="/user/login">Login</a>
+                <%}%>
+              
             </div>
         </div>
     </div>

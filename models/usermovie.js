@@ -7,6 +7,11 @@ module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
   class UserMovie extends Model {}
   UserMovie.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     UserId: DataTypes.INTEGER,
     MovieId: DataTypes.INTEGER
   }, {

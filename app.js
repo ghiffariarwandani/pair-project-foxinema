@@ -2,6 +2,8 @@ const express = require('express')
 const session = require('express-session');
 const nodemailer = require('nodemailer');
 const app = express()
+// const flash = require('flash-express')
+// app.use(flash());
 const {
     Movie,
     User,

@@ -80,6 +80,7 @@ class ControllerMovie {
                     let isBalance = user.balance - req.body.total_price
                     return Promise.all(
                         [UserMovie.create({
+                                id: null,
                                 UserId: Number(req.body.UserId),
                                 MovieId: Number(req.body.MovieId),
                             }),
