@@ -6,9 +6,10 @@ routes.get('/login',Controller.formLogin)
 routes.post('/login',Controller.login)
 routes.get('/register',Controller.formRegister)
 routes.post('/register',Controller.create)
-routes.get('/detailBooking/:UserMovieId/:MovieId/:UserId', helper.middlewareLogin,Controller.detilSeats)
-routes.get('/cancelBooking/:UserMovieId/:UserId', helper.middlewareLogin,Controller.destroyBooking)
-routes.get('/:UserId',helper.middlewareLogin,Controller.dashboardUser)
+routes.get('/detailBooking/:UserMovieId/:MovieId/', helper.middlewareLogin,Controller.detilSeats)
+routes.get('/cancelBooking/:UserMovieId/', helper.middlewareLogin,Controller.destroyBooking)
+routes.get('/',helper.middlewareLogin,Controller.dashboardUser)
+routes.get('/logout',Controller.logout)
 
 
 module.exports = routes

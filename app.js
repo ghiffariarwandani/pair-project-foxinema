@@ -1,7 +1,8 @@
 const express = require('express')
 const session = require('express-session');
 const app = express()
-const session = require('express-session')
+const flash = require('flash-express')
+app.use(flash());
 const {
     Movie,
     User,
