@@ -1,0 +1,35 @@
+[{
+    "director": "Jon Favreau",
+    "starring": " Donald Glover, Seth Rogen, Chiwetel Ejiofor, Billy Eichner, John Oliver, Keegan-Michael Key, Beyonce Knowles, James Earl Jones, Shahadi Wright Joseph",
+    "genre": "Animation, Adventure, Drama",
+    "duration": 118,
+    "MovieId": 1,
+    "image": "https://media.21cineplex.com/webcontent/gallery/pictures/156255975514830_405x594.jpg"
+}, {
+    "director": "Gina S. Noer",
+    "starring": "Angga Yunanda, Zara JKT48, Cut Mini, Arswendy Bening Swara, Dwi Sasono, Lulu Tobing, Rachel Amanda, Maisha Kanna, Shakira Jasmine, Ligwina Hananto",
+    "genre": "Drama",
+    "duration": 113,
+    "MovieId": 2,
+    "image": "https://media.21cineplex.com/webcontent/gallery/pictures/156169510779818_287x421.jpg"
+}, {
+    "director": "Jon Watts",
+    "starring": " Tom Holland, Samuel L. Jackson, Zendaya , Cobie Smulders, Jon Favreau, J.B. Smoove, Jacob Batalon, Martin Starr, Marisa Tomei, Jake Gyllenhaal",
+    "genre": "Action, Adventure, Comedy",
+    "MovieId": 3,
+    "image": "https://media.21cineplex.com/webcontent/gallery/pictures/156169362881192_287x421.jpg"
+}, {
+    "director": "Joss Whedon",
+    "starring": "Robert Downey Jr, Chris Evans, Mark Ruffalo, Chris Hemsworth, Scarlett Johansson, Jeremy Renner, Tom Hiddleston, Clark Gregg, Cobie Smulders, Stellan Skarsgård, Samuel L.Jackson ",
+    "genre": "Action, Adventure, Fantasy",
+    "duration": 143,
+    "MovieId": 4,
+    "image": "http://www.movienewsletters.net/photos/130835R1.jpg"
+}, {
+    "director": "David Leitch",
+    "starring": " Dwayne Johnson, Jason Statham, Idris Elba, Vanessa Kirby, Helen Mirren, Teresa Mahoney, Eiza González",
+    "genre": " Action, Adventure",
+    "duration": 136,
+    "MovieId": 5,
+    "image": "https://media.21cineplex.com/webcontent/gallery/pictures/156284279131503_287x421.jpg"
+}]
