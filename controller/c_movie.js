@@ -33,7 +33,6 @@ class ControllerMovie {
                 }
             })
             .then(movie => {
-                // res.send(movie)
                 res.render('movie/detail', {
                     movie
                 })
@@ -49,6 +48,10 @@ class ControllerMovie {
                 })
             })
             .catch(err => console.log(err))
+    }
+
+    static buyTicket(req, res) {
+        console.log(req.body);
     }
 
 }

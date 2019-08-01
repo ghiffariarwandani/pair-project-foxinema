@@ -12,7 +12,7 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <title>Bicket</title>
+    <title>Choose Seats</title>
     <style>
         body {
             font-size: 16px;
@@ -20,13 +20,14 @@
         }
 
         .theatre {
-            margin: 20px auto;
+            margin: 30px auto;
             width: 100%;
-            max-width: 400px;
-            border-radius: 10px;
-            background-color: #fff;
-            padding: 20px 30px;
-            box-shadow: 0px 0px 17px -4px #000;
+            height: 50%;
+            max-width: 500px;
+            border-radius: 5px;
+            background-color: white;
+            padding: 10px 20px;
+            box-shadow: 0px 0px 12px -4px #000;
         }
 
         .screen-side {
@@ -53,13 +54,12 @@
         .exit:before,
         .exit:after {
             content: "EXIT";
-            font-size: 14px;
+            font-size: 12px;
             line-height: 18px;
             padding: 0px 5px;
-            font-family: "Arial Narrow", Arial, sans-serif;
             display: block;
             position: absolute;
-            background: #6f726f;
+            background: #bda1a1;
             color: white;
             top: 50%;
             transform: translate(0, -50%);
@@ -83,7 +83,7 @@
             display: inline-flex;
             flex-direction: row;
             flex-wrap: nowrap;
-            justify-content: flex-start;
+            justify-content: flex-center;
         }
 
         .seat {
@@ -94,7 +94,7 @@
         }
 
         .seat.disabled label {
-            background-color: grey;
+            background-color: #e48282;
         }
 
         .seat:nth-child(3) {
@@ -107,7 +107,7 @@
         }
 
         .seat input[type="checkbox"]:checked+label {
-            background: #2c86a1;
+            background: #e48282;
             -webkit-animation-name: rubberBand;
             animation-name: rubberBand;
             animation-duration: 300ms;
@@ -115,7 +115,7 @@
         }
 
         .seat input[type="checkbox"]:disabled+label {
-            background: #6d2351;
+            background: #ff0000;
             text-indent: -9999px;
             overflow: hidden;
         }
@@ -143,8 +143,8 @@
             font-weight: bold;
             line-height: 1rem;
             padding: 5px 0;
-            color: #fff;
-            background: #d65ba7;
+            color: black;
+            background: #efdca4;
             border-radius: 2px;
             animation-duration: 300ms;
             animation-fill-mode: both;
@@ -153,41 +153,41 @@
 
         .seat label:hover {
             cursor: pointer;
-            box-shadow: 0px 0 7px 3px #d65ba7;
+            box-shadow: 0px 0 5px 2px #5b1515;
         }
     </style>
 </head>
 
 <body>
-    <!-- <form action="/ticket/tes" method="GET"> -->
     <%- include('../partials/navbar.ejs') %>
-    <div class="container" style="padding-top:100px">
-        <div class="row">
-            <div class="col-sm-4">
-                <form action="/ticket/addTicket" method="POST">
-                    <label for="title">Movie Title: </label><br>
-                    <h3><label for="movie_name"><%= dataMovie.movie_name %></label></h3><br>
-                    <%if(dataMovie.image){%>
-                    <img src="<%= dataMovie. image%>" class="mx-auto d-block" style="width:10%"><br>
-                    <%}else{%>
-                    <img src="https://lumiere-a.akamaihd.net/v1/images/p_toystory4_e8af7b4d.jpeg?region=0,0,540,810"
-                        class="mx-auto d-block" style="width:10%"><br>
-                    <%}%>
-            <label for="movie_name">Movie & ID : </label><br>
-            <input type="text" name="movie_id" value="<%= dataMovie.id %>" id="" ><br>
-                    <input type="text" name="movie_name" value="<%= dataMovie.movie_name %>" id=""><br>
-                    <label for="email">Your email: </label><br>
-                    <input type="text" name="email" value="" placeholder="input your user email"> <br>
+    <div class="container">
+        <div class="row" style="padding-top:60px">
+            <div class="col-sm-5">
+                <form action="" method="POST">
+                    <div class="form-group row">
+                        <h1 style="padding-left :20px "> <%= dataMovie.title %></h1>
+                        <label for="staticEmail" class="col-sm-2 col-form-label"></label>
+                        <input type="hidden" name="MovieId" readonly class="form-control-plaintext" id="staticEmail"
+                            value="<%= dataMovie.id %>">
+                    </div>
+                    <img src="<%= dataMovie. image%>" class="d-flex justify-content-start" style="width:60%"><br>
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-2 col-form-label">User:</label>
+                        <div class="col-sm-10">
+                            <input type="text" readonly class="form-control-plaintext" id="staticEmail"
+                                value="ghiffariarw">
+                        </div>
+                    </div>
                     <label for="seat">Seat: </label><br>
                     <input type="text" id="selectedSeats" name="seat"> <br>
                     <br>
-                    <label for="total_price">Total Price: </label>
-                    <input type="number" name="total_price" id="PriceMovie" value="<%= dataMovie.price %>"> <br>
+                    <label for="total_price">Total Price: </label> <br>
+                    <input name="total_price" id="PriceMovie" value="<%= dataMovie.price %>"> <br>
                     <br>
                     <button type="submit" class="btn btn-info">Checkout</button>
                 </form>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-5 d-flex justify-content-start" style="padding-top: 100px">
                 <div class="theatre">
                     <div class="screen-side">
                         <div class="screen">Screen</div>
@@ -221,15 +221,15 @@
                                 </li>
                                 <li class="seat">
                                     <input type="checkbox" id="2F" />
-                                    <label for="2F">2F</label>
+                                    <label for="2G">2F</label>
                                 </li>
                                 <li class="seat">
-                                    <input type="checkbox" id="2F">
-                                    <label for="2F">2F</label>
+                                    <input type="checkbox" id="2G">
+                                    <label for="2F">2G</label>
                                 </li>
                                 <li class="seat">
-                                    <input type="checkbox" name="2G" id="2G">
-                                    <label for="2G">2G</label>
+                                    <input type="checkbox" name="2H" id="2H">
+                                    <label for="2H">2H</label>
                                 </li>
                             </ol>
                         </li>
@@ -260,12 +260,12 @@
                                     <label for="3F">3F</label>
                                 </li>
                                 <li class="seat">
-                                    <input type="checkbox" id="3F">
-                                    <label for="3F">3F</label>
+                                    <input type="checkbox" id="3G">
+                                    <label for="3G">3G</label>
                                 </li>
                                 <li class="seat">
-                                    <input type="checkbox" name="3G" id="3G">
-                                    <label for="3G">3G</label>
+                                    <input type="checkbox" name="3H" id="3H">
+                                    <label for="3H">3H</label>
                                 </li>
                             </ol>
                         </li>
@@ -296,12 +296,12 @@
                                     <label for="4F">4F</label>
                                 </li>
                                 <li class="seat">
-                                    <input type="checkbox" id="4F" name="4F">
-                                    <label for="4F">4F</label>
+                                    <input type="checkbox" id="4G" name="4G">
+                                    <label for="4G">4G</label>
                                 </li>
                                 <li class="seat">
-                                    <input type="checkbox" name="4G" id="4G">
-                                    <label for="4G">4G</label>
+                                    <input type="checkbox" name="4H" id="4H">
+                                    <label for="4H">4H</label>
                                 </li>
                             </ol>
                         </li>
@@ -332,53 +332,49 @@
                                     <label for="5F">5F</label>
                                 </li>
                                 <li class="seat">
-                                    <input type="checkbox" id="5F">
-                                    <label for="5F">5F</label>
+                                    <input type="checkbox" id="5G">
+                                    <label for="5G">5G</label>
                                 </li>
                                 <li class="seat">
-                                    <input type="checkbox" name="5G" id="5G">
-                                    <label for="5G">5G</label>
+                                    <input type="checkbox" name="5H" id="5H">
+                                    <label for="5H">5H</label>
                                 </li>
                             </ol>
                         </li>
                     </ol>
                     <div class="exit exit--back">
                     </div>
-                    <!-- </form> -->
                 </div>
             </div>
         </div>
-    </div>
-    <!-- </form> -->
-    <script>
-        const selectedSeats = [];
-        const totalPrice = 0
-        const seats = document.getElementsByClassName('seat');
-        const selectedSeatsInput = document.getElementById('selectedSeats')
-        let setHarga = document.getElementById('PriceMovie')
-        let Harga = dataMovie.price
-        for (let i = 0; i < seats.length; i++) {
-            seats[i].addEventListener('click', (e) => {
-                e.preventDefault()
-                const inputs = seats[i].getElementsByTagName('input')
-                if (seats[i].classList.contains('disabled')) {
-                    seats[i].classList.toggle('disabled')
-                    selectedSeats.splice(selectedSeats.indexOf(inputs[0].id), 1)
-                    setHarga.value = Harga * selectedSeats.length
-                } else {
-                    selectedSeats.push(inputs[0].id)
-                    seats[i].classList.add('disabled')
-                    setHarga.value = Harga * selectedSeats.length
-                }
-                setSeatInput();
+        <!-- </form> -->
+        <script>
+            const selectedSeats = [];
+            const seats = document.getElementsByClassName('seat');
+            const selectedSeatsInput = document.getElementById('selectedSeats')
+            let totalPrice = document.getElementById('PriceMovie')
+            let price = 40000;
+            for (let i = 0; i < seats.length; i++) {
+                seats[i].addEventListener('click', (e) => {
+                    e.preventDefault()
+                    const inputs = seats[i].getElementsByTagName('input')
+                    if (seats[i].classList.contains('disabled')) {
+                        seats[i].classList.toggle('disabled')
+                        selectedSeats.splice(selectedSeats.indexOf(inputs[0].id), 1)
+                        totalPrice.value = price * selectedSeats.length
+                    } else {
+                        selectedSeats.push(inputs[0].id)
+                        seats[i].classList.add('disabled')
+                        totalPrice.value = price * selectedSeats.length
+                    }
+                    setSeatInput();
+                })
+            }
 
-            })
-        }
-
-        function setSeatInput() {
-            selectedSeatsInput.value = selectedSeats
-        }
-    </script>
+            function setSeatInput() {
+                selectedSeatsInput.value = selectedSeats
+            }
+        </script>
 
 </body>
 
