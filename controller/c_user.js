@@ -1,7 +1,35 @@
 const {User,UserMovie,Movie, Seat} = require('../models')
+const bcrypt = require('bcrypt')
 class ControllerUser{
     static formLogin(req,res){
         res.render('user/login')
+    }
+
+    static login(req,res){
+        User.findOne({
+            where : {
+                email : req.body.email
+            }
+        })
+        .then(data=>{
+            if(data){
+                if(bcrypt.compareSync(req.body.password, data.password)){
+                   
+                    req.session.UserId = data.id
+                    req.session.name = data.name
+                    req.session.balance = data.balance
+                    req.session.email = data.email
+                    res.redirect(`/user/${req.session.UserId}`)
+                }else{
+                    res.send('gagal login')
+                }
+            }else{
+                res.send('data ga ada woy')
+            }
+        })
+        .catch(err=>{
+            res.send(err)
+        })
     }
 
     static formRegister(req,res){
@@ -28,7 +56,7 @@ class ControllerUser{
             include : [{
                 model : User,
                 where : {
-                    id : req.params.id
+                    id : req.params.UserId
                 } 
             },{
                 model : Movie
@@ -85,6 +113,34 @@ class ControllerUser{
     }
 
     static destroyBooking(req,res){
+        Promise.all([
+            Seat.findAll({
+                where:{
+                    'UserMovieId': req.params.UserMovieId
+                }
+            }),
+            UserMovie.findByPk(req.params.UserMovieId)
+        ])
+        .then(data=>{
+            let numSeats = data[0].length
+            let movieId = data[1].MovieId
+            Movie.findByPk(movieId)
+            .then(mov=>{
+               mov.updateSeats(numSeats)
+               return User.findByPk(req.params.UserId)
+            })
+            .then(user=>{
+                let balance = numSeats*40000
+                user.refundBalance(balance)
+            })
+            .catch(err=>res.send(err))
+
+        })
+        .catch(err=>{
+            res.send(err)
+        })
+
+        UserMovie.findByPk(req.params.UserMovieId)
         Seat.destroy({
             where:{
                 'UserMovieId': req.params.UserMovieId
@@ -96,7 +152,6 @@ class ControllerUser{
                 },
                 cascade: true
             })
-            
         })
         .then(()=>{
             redirect(`/user/${req.params.UserId}`)
