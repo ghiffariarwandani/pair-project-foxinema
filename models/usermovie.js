@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
   UserMovie.init({
     id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement:true
     },
     UserId: DataTypes.INTEGER,
     MovieId: DataTypes.INTEGER

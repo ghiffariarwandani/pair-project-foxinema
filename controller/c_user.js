@@ -65,8 +65,8 @@ class ControllerUser{
             }   ]
         })
         .then(data=>{
-            //res.send(data)
-            res.render('user/dashboard',{data:data, seats:null, session : req.session})
+            res.send(data)
+            //res.render('user/dashboard',{data:data, seats:null, session : req.session})
         })
         .catch(err=>{
             console.log(err);
