@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
-  class Movie extends Model{}
+  class Movie extends Model {}
   Movie.init({
     seats: DataTypes.INTEGER,
     title: DataTypes.STRING,
@@ -10,9 +10,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize
   })
-  Movie.associate = function(models) {
+  Movie.associate = function (models) {
     // associations can be defined here
-    Movie.belongsToMany(models.User,{through: models.UserMovie})
+    Movie.belongsToMany(models.User, {
+      through: models.UserMovie
+    })
+    Movie.hasOne(models.DescMovie)
   };
   return Movie;
 };
