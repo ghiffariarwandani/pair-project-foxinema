@@ -1,5 +1,5 @@
 const session = require('express-session')
-
+const nodemailer = require("nodemailer");
 module.exports = {
     convertDate: function (date) {
         return date.toDateString()
@@ -9,7 +9,7 @@ module.exports = {
         if (req.session.email) {
             next()
         } else {
-            res.redirect('/')
+            res.redirect('/user/login')
         }
 
     },
@@ -23,22 +23,25 @@ module.exports = {
 
             // create reusable transporter object using the default SMTP transport
             let transporter = nodemailer.createTransport({
-                host: "smtp.ethereal.email",
-                port: 587,
-                secure: false, // true for 465, false for other ports
+                service : "Yahoo",
+                host: 'smtp.mail.yahoo.com',
+                port: 465,
+                secure: true, // true for 465, false for other ports
                 auth: {
-                    user: testAccount.user, // generated ethereal user
-                    pass: testAccount.pass // generated ethereal password
-                }
+                    user: 'foxinema@yahoo.com', // generated ethereal user
+                    pass: 'bethebest' // generated ethereal password
+                },
+                debug: false,
+                logger: true
             });
 
             // send mail with defined transport object
             let info = await transporter.sendMail({
-                from: '"Fred Foo 👻" <foo@example.com>', // sender address
-                to: "bar@example.com, baz@example.com", // list of receivers
-                subject: "Hello ✔", // Subject line
-                text: "Hello world?", // plain text body
-                html: "<b>Hello world?</b>" // html body
+                from:'"Foxinema - World Leading Cinema In Hacktiv8" <foxinema@yahoo.com>', // sender address
+                to: email, // list of receivers
+                subject: "Registration Form", // Subject line
+                text: "Hi, we just get you register to our beloved cinema. Please go to this link http://localhost:3000/user/login to get new experience. ", // plain text body
+               
             });
 
             console.log("Message sent: %s", info.messageId);
@@ -47,7 +50,9 @@ module.exports = {
             // Preview only available when sending through an Ethereal account
             console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
             // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+
         }
+        main().catch(console.error);
 
     }
 }

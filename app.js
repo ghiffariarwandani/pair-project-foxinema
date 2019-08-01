@@ -1,3 +1,5 @@
+const flash = require('express-flash-notification');
+const cookieParser = require('cookie-parser');
 const express = require('express')
 const app = express()
 const session = require('express-session');
@@ -11,8 +13,15 @@ const {
 app.use(express.urlencoded({
     extended: false
 }))
-
 app.set('view engine', 'ejs')
+app.use(cookieParser());
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+}))
+
+
 
 app.use(session({
     secret: 'keyboard cat',
