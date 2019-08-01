@@ -2,7 +2,12 @@
 const bcrypt = require('bcrypt')
 module.exports = (sequelize, DataTypes) => {
   const Model = sequelize.Sequelize.Model
-  class User extends Model{}
+  class User extends Model{
+    refundBalance(balance){
+      this.balance += balance
+      this.save()
+    }
+  }
   User.init({
     name: DataTypes.STRING,
     balance: {
