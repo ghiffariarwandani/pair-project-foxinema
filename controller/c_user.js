@@ -4,6 +4,7 @@ const {
     Movie,
     Seat
 } = require('../models')
+const helpers = require('../helpers/helpers')
 const bcrypt = require('bcrypt')
 class ControllerUser {
     static formLogin(req, res) {
@@ -26,9 +27,7 @@ class ControllerUser {
                         req.session.email = data.email
                         res.redirect(`/user`)
                     } else {
-                        res.flash('info', 'Username/Password is wrong', 'warn')
-                        res.redirect('/user/login')
-
+                        req.flash('Username/Password is wrong')
                     }
                 }
             })
@@ -46,14 +45,14 @@ class ControllerUser {
             User.create(req.body)
                 .then(() => {
                     helpers.nodemailer(req.body.email)
-                    res.send('User berhasil dibuat')
+                    res.redirect('/user/login')
                 })
                 .catch((err) => {
                     res.send(err)
                     console.log(err);
                 })
         } else {
-            res.send('password must be the same')
+            req.flash('password must be the same')
         }
 
     }
@@ -106,7 +105,6 @@ class ControllerUser {
             ])
 
             .then(data => {
-                //res.send(data)
                 let seats = data[1]
                 let movie = data[2]
                 let all = data[0]
@@ -117,7 +115,6 @@ class ControllerUser {
                     movie: movie,
                     session: req.session
                 })
-                //res.send({data:all, seats:seats, movie:movie})
 
             })
             .catch(err => {
@@ -162,11 +159,8 @@ class ControllerUser {
                         })
                     })
                     .then(() => {
-                        redirect(`/user/${req.params.UserId}`)
+                        res.redirect(`/user`)
                     })
-            })
-            .then(() => {
-                redirect(`/user/`)
             })
             .catch(err => {
                 res.send(err)
@@ -175,7 +169,7 @@ class ControllerUser {
     }
 
     static logout(req, res) {
-        req.session.destroy
+        req.session.destroy()
         res.redirect('/')
     }
 

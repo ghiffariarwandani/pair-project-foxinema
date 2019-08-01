@@ -1,3 +1,5 @@
+const flash = require('express-flash-notification');
+const cookieParser = require('cookie-parser');
 const express = require('express')
 const session = require('express-session');
 const nodemailer = require('nodemailer');
@@ -11,13 +13,15 @@ const {
 app.use(express.urlencoded({
     extended: false
 }))
+app.set('view engine', 'ejs')
+app.use(cookieParser());
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
 }))
 
-app.set('view engine', 'ejs')
+
 
 app.use(session({
     secret: 'keyboard cat',
@@ -27,6 +31,7 @@ app.use(session({
         maxAge: 999999999999999999999999999999999
     }
 }))
+app.use(flash(app));
 
 
 app.locals.helpers = require('./helpers/helpers')
