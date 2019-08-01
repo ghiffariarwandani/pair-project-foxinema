@@ -4,7 +4,10 @@ module.exports = (sequelize, DataTypes) => {
   class Seat extends Model{}
   Seat.init({
     seatName: DataTypes.STRING,
-    UserMovieId: DataTypes.INTEGER
+    UserMovieId: {
+      type: DataTypes.INTEGER,
+      onDelete: 'CASCADE'
+    }
   },{
     sequelize
   })
