@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        body {
+            background-color: white
+        }
+
+        .hover11 figure img {
+            opacity: 1;
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+
+        .hover11 figure:hover img {
+            opacity: 0.7;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+        <%-include('../partials/navbar')%>
+    <div class="container" style="padding-top: 100px">
+            <right><h3>Hello, <%=session.name%></h3></right>
+            <h4>Your balance : <%=session.balance.toLocaleString('en-ID', {style: 'currency', currency: 'IDR'})%></h4>
+            <span>Your reservation movie(s)...</span>
+        <div class="card-deck">
+            <%data.forEach(e=>{%>
+            <div class="card hover11">
+                <figure> <a href="/movie/<%= e.Movie.id %>"> <img class="card-img-top image"
+                            src="<%= e.Movie.image %>"
+                            alt="Card image cap"> </a> </figure>
+                <div class="card-body">
+                    <h5 class="card-title"> <%= e.Movie.title %> </h5>
+                    <p class="card-text"> <a href="/user/detailBooking/<%=e.id%>/<%=e.Movie.id%>/">Detail</a></p>
+                    <p class="card-text"> <a href= "/user/cancelBooking/<%=e.id%>/">Cancel</a></p>
+                </div>
+            </div>
+            <%})%>
+        </div>
+        <%if(seats){%>
+            <p  class="card-text">Your Detail Booking :</p><br>
+            <b  class="card-text">Title : <%=movie.title%></b><br><br>
+            <b  class="card-text">Time :<%=movie.date%></b><br><br>
+            <b  class="card-text">Seats: 
+                    <%seats.forEach(e=>{%>
+                        <li><%=e.seatName%></li>
+                        <%})%>
+            </b><br><br>
+        <%}%>
+    </div>
+</body>
+
+</html>

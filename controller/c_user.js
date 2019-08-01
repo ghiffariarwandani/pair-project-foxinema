@@ -19,9 +19,11 @@ class ControllerUser{
                     req.session.name = data.name
                     req.session.balance = data.balance
                     req.session.email = data.email
-                    res.redirect(`/user/${req.session.UserId}`)
+                    res.redirect(`/user`)
                 }else{
-                    res.send('gagal login')
+                    res.flash('info','Username/Password is wrong','warn')
+                    res.redirect('/user/login')
+            
                 }
             }else{
                 res.send('data ga ada woy')
@@ -56,7 +58,7 @@ class ControllerUser{
             include : [{
                 model : User,
                 where : {
-                    id : req.params.UserId
+                    id : req.session.UserId
                 } 
             },{
                 model : Movie
@@ -64,7 +66,7 @@ class ControllerUser{
         })
         .then(data=>{
             //res.send(data)
-            res.render('user/users',{data:data, seats:null})
+            res.render('user/dashboard',{data:data, seats:null, session : req.session})
         })
         .catch(err=>{
             console.log(err);
@@ -78,7 +80,7 @@ class ControllerUser{
                 include : [{
                     model : User,
                     where : {
-                        id : req.params.UserId
+                        id : req.session.UserId
                     } 
                 },{
                     model : Movie
@@ -101,7 +103,7 @@ class ControllerUser{
             let movie = data[2]
             let all = data[0]
  
-            res.render('user/users',{data:all, seats:seats, movie:movie})
+            res.render('user/dashboard',{data:all, seats:seats, movie:movie, session : req.session})
             //res.send({data:all, seats:seats, movie:movie})
 
         })
@@ -127,7 +129,7 @@ class ControllerUser{
             Movie.findByPk(movieId)
             .then(mov=>{
                mov.updateSeats(numSeats)
-               return User.findByPk(req.params.UserId)
+               return User.findByPk(req.session.UserId)
             })
             .then(user=>{
                 let balance = numSeats*40000
@@ -154,12 +156,17 @@ class ControllerUser{
             })
         })
         .then(()=>{
-            redirect(`/user/${req.params.UserId}`)
+            redirect(`/user/`)
         })
         .catch(err=>{
             res.send(err)
         })
         
+    }
+
+    static logout(req,res){
+        req.session.destroy
+        res.redirect('/')
     }
 
 }

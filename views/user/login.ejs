@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login User</title>
 
+  
+	<title>Login User</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <style>
 /*//////////////////////////////////////////////////////////////////
@@ -404,12 +407,14 @@ input.input100 {
 </style>
 <body>
     <%- include('../partials/navbar') %>
+    <script type="text/javascript" src="flash/flash-client.js"></script> 
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
 				<form class="login100-form validate-form" method = "POST" action = '/user/login'>
 					<span class="login100-form-title p-b-33">
-						Login
+            Login
+         
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
