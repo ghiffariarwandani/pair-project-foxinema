@@ -1,7 +1,7 @@
 const express = require('express')
 const session = require('express-session');
+const nodemailer = require('nodemailer');
 const app = express()
-const session = require('express-session')
 const {
     Movie,
     User,
@@ -21,12 +21,14 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge : 999999999999999999 }
-  }))
+    cookie: {
+        maxAge: 999999999999999999999999999999999
+    }
+}))
 
 
 app.locals.helpers = require('./helpers/helpers')
-app.use((req,res,next)=>{
+app.use((req, res, next) => {
     app.locals.session = req.session
     next()
 })

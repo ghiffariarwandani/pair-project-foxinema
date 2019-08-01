@@ -1,7 +1,11 @@
 const {
     Movie,
-    DescMovie
+    DescMovie,
+    UserMovie,
+    User,
+    Seat
 } = require('../models/')
+const axios = require('axios');
 
 class ControllerMovie {
 
@@ -19,7 +23,6 @@ class ControllerMovie {
                 res.render('movie/movies', {
                     movies
                 })
-                // res.send(movies)
             })
             .catch(err => {
                 console.log(err);
@@ -33,8 +36,23 @@ class ControllerMovie {
                 }
             })
             .then(movie => {
+                const trailler = movie.title + 'trailler'
+                return Promise.all([
+                    movie,
+                    axios({
+                        method: 'get',
+                        url: `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${trailler}&type=video&maxResults=1&chart=mostPopular&key=AIzaSyBXgmC9VIwGq3HeOab8kE78XrnNjrCnDrc`,
+                    })
+                ])
+            })
+            .then(created => {
+                const mov = {
+                    movieInfo: created[0],
+                    youtube: created[1].data.items[0].id.videoId
+                };
                 res.render('movie/detail', {
-                    movie
+                    mov,
+                    url: mov.youtube
                 })
             })
             .catch(err => console.log(err))
@@ -43,15 +61,54 @@ class ControllerMovie {
     static showSeats(req, res) {
         Movie.findByPk(req.params.id)
             .then(dataMovie => {
+                let user = {
+                    id: req.session.UserId,
+                    name: req.session.name,
+                }
                 res.render('movie/seats', {
-                    dataMovie
+                    dataMovie,
+                    user
                 })
             })
             .catch(err => console.log(err))
     }
 
     static buyTicket(req, res) {
-        console.log(req.body);
+        User.findByPk(req.body.UserId)
+            .then(user => {
+                if (user.balance >= req.body.total_price) {
+                    let isBalance = user.balance - req.body.total_price
+                    return Promise.all(
+                        [UserMovie.create({
+                                UserId: Number(req.body.UserId),
+                                MovieId: Number(req.body.MovieId),
+                            }),
+                            User.update({
+                                balance: isBalance
+                            }, {
+                                where: {
+                                    id: req.body.UserId
+                                }
+                            })
+                        ])
+                } else {
+                    throw new Error('uang gak cukup cui')
+                }
+            })
+            .then((result) => {
+                let seats = req.body.seat.split(',')
+                let userMovie = Number(result[0].dataValues.id)
+                res.redirect('/user')
+                seats.forEach(el => {
+                    Seat.create({
+                        seatName: el,
+                        UserMovieId: userMovie
+                    })
+                })
+            })
+            .catch(err => {
+                res.send(err.messagge)
+            })
     }
 
 }

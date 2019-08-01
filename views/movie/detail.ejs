@@ -22,7 +22,7 @@
             opacity: 0.7;
         }
     </style>
-    <title><%= movie.title %></title>
+    <title><%= mov.movieInfo.title %></title>
 </head>
 
 <body>
@@ -31,12 +31,12 @@
         <div class="d-flex col-5">
             <div class="card border-light" style="width: 20rem;">
                 <div class="card-body">
-                    <h5 class="card-title"><%= movie.title %></h5>
-                    <img class="card-img-top image" src="<%= movie.DescMovie.image %>" alt="Card image cap">
+                    <h5 class="card-title"><%= mov.movieInfo.title %></h5>
+                    <img class="card-img-top image" src="<%=  mov.movieInfo.DescMovie.image %>" alt="Card image cap">
 
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item d-flex justify-content-center" style="padding-top:30px"> <a
-                                href="/movie/<%= movie.id %>/seats">
+                                href="/movie/<%=  mov.movieInfo.id %>/seats">
                                 <button type="button" class="btn btn-outline-dark" data-toggle="button"
                                     aria-pressed="false" autocomplete="off">
                                     BUY TICKET
@@ -48,26 +48,26 @@
         </div>
         <div class="col-7" style="padding-top:60px">
             <div class="d-flex" style="width: 100%; height: 50%">
-                <iframe src="https://www.youtube.com/embed/Zhawgd0REhA" frameborder="0"></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/<%=url%>" frameborder="0"></iframe>
             </div>
             <div class="d-flex" style="padding-top: 50px">
                 <table class="table">
                     <tbody>
                         <tr>
                             <th scope="row">Director</th>
-                            <td><%= movie.DescMovie.director %></td>
+                            <td><%=  mov.movieInfo.DescMovie.director %></td>
                         </tr>
                         <tr>
                             <th scope="row">Starring</th>
-                            <td><%= movie.DescMovie.starring %></td>
+                            <td><%=  mov.movieInfo.DescMovie.starring %></td>
                         </tr>
                         <tr>
                             <th scope="row">Genre</th>
-                            <td><%= movie.DescMovie.genre %></td>
+                            <td><%=  mov.movieInfo.DescMovie.genre %></td>
                         </tr>
                         <tr>
                             <th scope="row">Duration</th>
-                            <td><%= movie.DescMovie.duration %> Minutes</td>
+                            <td><%=  mov.movieInfo.DescMovie.duration %> Minutes</td>
                         </tr>
                     </tbody>
                 </table>
