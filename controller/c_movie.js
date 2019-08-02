@@ -72,18 +72,26 @@ class ControllerMovie {
             })
             .catch(err => console.log(err))
     }
-    
+
     static buyTicket(req, res) {
         User.findByPk(req.body.UserId)
             .then(user => {
                 if (user.balance >= req.body.total_price) {
                     let isBalance = user.balance - req.body.total_price
-                    return UserMovie.findOne({
-                        where: {
-                            UserId: Number(req.body.UserId),
-                            MovieId: Number(req.body.MovieId)
-                        }
-                    })
+                    return Promise.all(
+                        [UserMovie.create({
+                                id: null,
+                                UserId: Number(req.body.UserId),
+                                MovieId: Number(req.body.MovieId),
+                            }),
+                            User.update({
+                                balance: isBalance
+                            }, {
+                                where: {
+                                    id: req.body.UserId
+                                }
+                            })
+                        ])
                 } else {
                     throw new Error('uang gak cukup cui')
                 }
@@ -100,8 +108,7 @@ class ControllerMovie {
                 })
             })
             .catch(err => {
-                req.flash('err', `${err.message}`)
-                res.redirect(`/movie/${req.body.MovieId}/seats`)
+                res.send(err.messagge)
             })
     }
 
