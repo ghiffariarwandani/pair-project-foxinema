@@ -22,20 +22,24 @@
             opacity: 0.7;
         }
     </style>
-    <title>Document</title>
+    <title><%=session.name%></title>
 </head>
 
 <body>
     <%-include('../partials/navbar')%>
     <div class="container">
+
         <div class="row d-flex justify-content-center" style="padding-top: 50px">
             <div class="card" style="width: 18rem;">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv3i4CeNyrwHHp_r4MjwFYUQHCb49OSy8_C_Z-ksIGsAf8Lxze"
                     class="card-img-top" alt="...">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"> Name: <%=session.name%></li>
-                    <li class="list-group-item"> Balance :
+                    <li class="list-group-item"> <%=session.name%></li>
+                    <li class="list-group-item"> 
                         <%=session.balance.toLocaleString('en-ID', {style: 'currency', currency: 'IDR'})%></li>
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> <a href="/user/<%=session.UserId%>/topup">Top Up Here</a></li>
                 </ul>
             </div>
         </div>
@@ -71,14 +75,14 @@
                             <% if(seats) { %>
                             <tr>
                                 <th scope="row">Seats</th>
-                            <tr>
                                 <%seats.forEach(e=>{%>
                                 <td><%=e.seatName%></td>
                                 <%})%>
+                            <tr>
                             </tr>
                             <tr>
                                 <th scope="row">Time</th>
-                                <td><%=movie.date%></td>
+                                <td><%= helpers.convertDate(movie.date)%></td>
                             </tr>
                             <% } %>
                             <tr>

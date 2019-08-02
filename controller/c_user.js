@@ -8,7 +8,9 @@ const helpers = require('../helpers/helpers')
 const bcrypt = require('bcrypt')
 class ControllerUser {
     static formLogin(req, res) {
-        res.render('user/login', {success: req.flash('info')})
+        res.render('user/login', {
+            success: req.flash('info')
+        })
     }
 
     static login(req, res) {
@@ -172,6 +174,37 @@ class ControllerUser {
     static logout(req, res) {
         req.session.destroy()
         res.redirect('/')
+    }
+
+    static formtopup(req, res) {
+        User.findByPk(req.params.id)
+            .then(user => {
+                res.render('user/topup', {
+                    user
+                })
+            })
+            .catch(err => console.log(err))
+    }
+
+    static topup(req, res) {
+        User.findByPk(req.params.id)
+            .then(user => {
+                return User.update({
+                    balance: user.balance + Number(req.body.topup)
+                }, {
+                    where: {
+                        id: req.params.id
+                    }
+                })
+            })
+            .then(() => {
+                req.flash('info', 'sedang di proses...')
+                // res.send(req.flash)
+                res.redirect('/user')
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
 }
