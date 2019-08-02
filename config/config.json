@@ -6,5 +6,12 @@
     "host": "127.0.0.1",
     "dialect": "postgres",
     "logging": false
+  },
+  "production" :{
+    "host" : "ec2-174-129-209-212.compute-1.amazonaws.com",
+    "username" : "retubxgyyugyow",
+    "password" : "25e69a5ff26b574c317a7df5ef63a8a5436a8c24457d3e8097f47c81eae15c0f",
+    "database" : "d74at9bfj5b7if",
+    "dialect" : "postgres"
   }
 }
