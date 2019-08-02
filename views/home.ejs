@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body {
+            background: white;
+            background-position: 0px 0px;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+
+        .centerImg {
+            height: 100%;
+            background: url(https://image.spreadshirtmedia.com/image-server/v1/mp/compositions/T127A1MPA215PT21X8Y6D1017015788FS4322/views/1,width=550,height=550,appearanceId=1,backgroundColor=FFFFFF,noPt=true,version=1550269864/fox-drawing-art-painting-fox-small-buttons.jpg) no-repeat fixed center center;
+            opacity: 1;
+            animation: lowPoly 6.3s ease-in infinite;
+        }
+
+        @keyframes lowPoly {
+            25% {
+                opacity: 0.25;
+            }
+
+            50% {
+                opacity: 0.50;
+            }
+
+            75% {
+                opacity: 0.75;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .container {
+            height: 800px;
+        }
+
+        #typewriter {
+            font-size: 50px;
+            color: #232931;
+            font-family: 'Raleway', sans-serif;
+            letter-spacing: 1.5px;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-490%);
+
+        }
+
+        button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-1290%);
+            background-color: white
+        }
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Foxinema</title>
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.indigo-pink.min.css">
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.6/material.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
+    <div class="container">
+        <div class="centerImg"></div>
+        <div id="typewriter"></div>
+    </div>
+    <br><br><br><br><br>
+    <a href="/movie"> <button
+            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+            MOVIE AND CHILL
+        </button> </a>
+    <script>
+        var str = "FOXINEMA ",
+            i = 0,
+            isTag,
+            text;
+
+        (function type() {
+            text = str.slice(0, ++i);
+            if (text === str) return;
+
+            document.getElementById('typewriter').innerHTML = text;
+
+            var char = text.slice(-1);
+            if (char === '<') isTag = true;
+            if (char === '>') isTag = false;
+
+            if (isTag) return type();
+            setTimeout(type, 150);
+        }());
+    </script>
+</body>
+
+</html>

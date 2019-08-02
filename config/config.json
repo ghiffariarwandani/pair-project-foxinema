@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "dimas1777",
+    "database": "database_foxinema",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "logging": false
+  }
+}

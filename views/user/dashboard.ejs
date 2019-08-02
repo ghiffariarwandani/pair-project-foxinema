@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        body {
+            background-color: white
+        }
+
+        .hover11 figure img {
+            opacity: 1;
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+
+        .hover11 figure:hover img {
+            opacity: 0.7;
+        }
+    </style>
+    <title><%=session.name%></title>
+</head>
+
+<body>
+    <%-include('../partials/navbar')%>
+    <div class="container">
+
+        <div class="row d-flex justify-content-center" style="padding-top: 50px">
+            <div class="card" style="width: 18rem;">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv3i4CeNyrwHHp_r4MjwFYUQHCb49OSy8_C_Z-ksIGsAf8Lxze"
+                    class="card-img-top" alt="...">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> <%=session.name%></li>
+                    <li class="list-group-item"> 
+                        <%=session.balance.toLocaleString('en-ID', {style: 'currency', currency: 'IDR'})%></li>
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> <a href="/user/<%=session.UserId%>/topup">Top Up Here</a></li>
+                </ul>
+            </div>
+        </div>
+        <br><br>
+        <%data.forEach(e=>{%>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card border-light" style="width: 20rem;">
+                    <div class="card-body">
+
+                        <a href="/movie/<%= e.Movie.id %>">
+                        </a> <img class="card-img-top image" src="<%= e.Movie.image %>" alt="Card image cap">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="d-flex" style="padding-top: 50px">
+                </div>
+                <div class="d-flex">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Title</th>
+                                <td><%=  e.Movie.title %></td>
+                            </tr>
+                            <tr>
+                                <th>Detail:</th>
+                                <td>
+                                    <a href="/user/detailBooking/<%=e.id%>/<%=e.Movie.id%>">here</a>
+                                </td>
+                            </tr>
+                            <% if(seats) { %>
+                            <tr>
+                                <th scope="row">Seats</th>
+                                <%seats.forEach(e=>{%>
+                                <td><%=e.seatName%></td>
+                                <%})%>
+                            <tr>
+                            </tr>
+                            <tr>
+                                <th scope="row">Time</th>
+                                <td><%= helpers.convertDate(movie.date)%></td>
+                            </tr>
+                            <% } %>
+                            <tr>
+                                <th scope="row">Cancel</th>
+                                <td>
+                                    <a href="/user/cancelBooking/<%=e.id%>">here</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <%})%>
+
+    </div>
+</body>
+
+</html>
