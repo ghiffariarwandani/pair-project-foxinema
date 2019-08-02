@@ -22,39 +22,82 @@
             opacity: 0.7;
         }
     </style>
-    <title>Document</title>
+    <title><%=session.name%></title>
 </head>
 
 <body>
-        <%-include('../partials/navbar')%>
-    <div class="container" style="padding-top: 100px">
-            <right><h3>Hello, <%=session.name%></h3></right>
-            <h4>Your balance : <%=session.balance.toLocaleString('en-ID', {style: 'currency', currency: 'IDR'})%></h4>
-            <span>Your reservation movie(s)...</span>
-        <div class="card-deck">
-            <%data.forEach(e=>{%>
-            <div class="card hover11">
-                <figure> <a href="/movie/<%= e.Movie.id %>"> <img class="card-img-top image"
-                            src="<%= e.Movie.image %>"
-                            alt="Card image cap"> </a> </figure>
-                <div class="card-body">
-                    <h5 class="card-title"> <%= e.Movie.title %> </h5>
-                    <p class="card-text"> <a href="/user/detailBooking/<%=e.id%>/<%=e.Movie.id%>/">Detail</a></p>
-                    <p class="card-text"> <a href= "/user/cancelBooking/<%=e.id%>/">Cancel</a></p>
+    <%-include('../partials/navbar')%>
+    <div class="container">
+
+        <div class="row d-flex justify-content-center" style="padding-top: 50px">
+            <div class="card" style="width: 18rem;">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv3i4CeNyrwHHp_r4MjwFYUQHCb49OSy8_C_Z-ksIGsAf8Lxze"
+                    class="card-img-top" alt="...">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> <%=session.name%></li>
+                    <li class="list-group-item"> 
+                        <%=session.balance.toLocaleString('en-ID', {style: 'currency', currency: 'IDR'})%></li>
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> <a href="/user/<%=session.UserId%>/topup">Top Up Here</a></li>
+                </ul>
+            </div>
+        </div>
+        <br><br>
+        <%data.forEach(e=>{%>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card border-light" style="width: 20rem;">
+                    <div class="card-body">
+
+                        <a href="/movie/<%= e.Movie.id %>">
+                        </a> <img class="card-img-top image" src="<%= e.Movie.image %>" alt="Card image cap">
+                        </a>
+                    </div>
                 </div>
             </div>
-            <%})%>
+            <div class="col-md-7">
+                <div class="d-flex" style="padding-top: 50px">
+                </div>
+                <div class="d-flex">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Title</th>
+                                <td><%=  e.Movie.title %></td>
+                            </tr>
+                            <tr>
+                                <th>Detail:</th>
+                                <td>
+                                    <a href="/user/detailBooking/<%=e.id%>/<%=e.Movie.id%>">here</a>
+                                </td>
+                            </tr>
+                            <% if(seats) { %>
+                            <tr>
+                                <th scope="row">Seats</th>
+                                <%seats.forEach(e=>{%>
+                                <td><%=e.seatName%></td>
+                                <%})%>
+                            <tr>
+                            </tr>
+                            <tr>
+                                <th scope="row">Time</th>
+                                <td><%= helpers.convertDate(movie.date)%></td>
+                            </tr>
+                            <% } %>
+                            <tr>
+                                <th scope="row">Cancel</th>
+                                <td>
+                                    <a href="/user/cancelBooking/<%=e.id%>">here</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <%if(seats){%>
-            <p  class="card-text">Your Detail Booking :</p><br>
-            <b  class="card-text">Title : <%=movie.title%></b><br><br>
-            <b  class="card-text">Time :<%=movie.date%></b><br><br>
-            <b  class="card-text">Seats: 
-                    <%seats.forEach(e=>{%>
-                        <li><%=e.seatName%></li>
-                        <%})%>
-            </b><br><br>
-        <%}%>
+        <%})%>
+
     </div>
 </body>
 

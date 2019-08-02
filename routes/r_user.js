@@ -10,6 +10,8 @@ routes.get('/detailBooking/:UserMovieId/:MovieId/', helper.middlewareLogin,Contr
 routes.get('/cancelBooking/:UserMovieId/', helper.middlewareLogin,Controller.destroyBooking)
 routes.get('/',helper.middlewareLogin,Controller.dashboardUser)
 routes.get('/logout',Controller.logout)
+routes.get('/:id/topup', Controller.formtopup)
+routes.post('/:id/topup', Controller.topup)
 
 
 module.exports = routes

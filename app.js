@@ -1,11 +1,9 @@
-const flash = require('express-flash-notification');
-const cookieParser = require('cookie-parser');
 const express = require('express')
-const session = require('express-session');
-const nodemailer = require('nodemailer');
 const app = express()
-// const flash = require('flash-express')
-// app.use(flash());
+const session = require('express-session');
+const flash = require('express-flash');
+const nodemailer = require('nodemailer');
+
 const {
     Movie,
     User,
@@ -14,14 +12,6 @@ app.use(express.urlencoded({
     extended: false
 }))
 app.set('view engine', 'ejs')
-app.use(cookieParser());
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-}))
-
-
 
 app.use(session({
     secret: 'keyboard cat',
@@ -31,7 +21,7 @@ app.use(session({
         maxAge: 999999999999999999999999999999999
     }
 }))
-app.use(flash(app));
+app.use(flash());
 
 
 app.locals.helpers = require('./helpers/helpers')
@@ -39,8 +29,6 @@ app.use((req, res, next) => {
     app.locals.session = req.session
     next()
 })
-
-
 
 app.get('/', (req, res) => {
     res.render('home')

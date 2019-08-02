@@ -39,20 +39,20 @@ class ControllerMovie {
                 const trailler = movie.title + 'trailler'
                 return Promise.all([
                     movie,
-                    axios({
-                        method: 'get',
-                        url: `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${trailler}&type=video&maxResults=1&chart=mostPopular&key=AIzaSyBXgmC9VIwGq3HeOab8kE78XrnNjrCnDrc`,
-                    })
+                    // axios({
+                    //     method: 'get',
+                    //     url: `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${trailler}&type=video&maxResults=1&chart=mostPopular&key=AIzaSyBXgmC9VIwGq3HeOab8kE78XrnNjrCnDrc`,
+                    // })
                 ])
             })
             .then(created => {
                 const mov = {
-                    movieInfo: created[0],
-                    youtube: created[1].data.items[0].id.videoId
+                    movieInfo: created[0].dataValues,
+                    // youtube: created[1].data.items[0].id.videoId
                 };
                 res.render('movie/detail', {
                     mov,
-                    url: mov.youtube
+                    // url: mov.youtube
                 })
             })
             .catch(err => console.log(err))
@@ -72,26 +72,18 @@ class ControllerMovie {
             })
             .catch(err => console.log(err))
     }
-
+    
     static buyTicket(req, res) {
         User.findByPk(req.body.UserId)
             .then(user => {
                 if (user.balance >= req.body.total_price) {
                     let isBalance = user.balance - req.body.total_price
-                    return Promise.all(
-                        [UserMovie.create({
-                                id: null,
-                                UserId: Number(req.body.UserId),
-                                MovieId: Number(req.body.MovieId),
-                            }),
-                            User.update({
-                                balance: isBalance
-                            }, {
-                                where: {
-                                    id: req.body.UserId
-                                }
-                            })
-                        ])
+                    return UserMovie.findOne({
+                        where: {
+                            UserId: Number(req.body.UserId),
+                            MovieId: Number(req.body.MovieId)
+                        }
+                    })
                 } else {
                     throw new Error('uang gak cukup cui')
                 }
@@ -108,7 +100,8 @@ class ControllerMovie {
                 })
             })
             .catch(err => {
-                res.send(err.messagge)
+                req.flash('err', `${err.message}`)
+                res.redirect(`/movie/${req.body.MovieId}/seats`)
             })
     }
 
