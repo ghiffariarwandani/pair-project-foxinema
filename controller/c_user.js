@@ -144,6 +144,10 @@ class ControllerUser {
                         mov.updateSeats(numSeats)
                         return User.findByPk(req.session.UserId)
                     })
+                    .then((user)=>{
+                        user.refundBalance(numSeats*40000)
+                        req.session.balance += numSeats*40000
+                    })
                     .catch(err => {
                         res.send(err)
                     })
@@ -198,6 +202,7 @@ class ControllerUser {
                 })
             })
             .then(() => {
+                req.session.balance += Number(req.body.topup)
                 req.flash('info', 'sedang di proses...')
                 // res.send(req.flash)
                 res.redirect('/user')

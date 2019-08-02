@@ -78,6 +78,7 @@ class ControllerMovie {
             .then(user => {
                 if (user.balance >= req.body.total_price) {
                     let isBalance = user.balance - req.body.total_price
+                    req.session.balance = isBalance
                     return Promise.all(
                         [UserMovie.create({
                                 id: null,
