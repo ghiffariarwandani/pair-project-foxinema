@@ -3,6 +3,7 @@ const app = express()
 const session = require('express-session');
 const flash = require('express-flash');
 const nodemailer = require('nodemailer');
+const port = process.env.PORT || 3000
 
 const {
     Movie,
@@ -39,6 +40,6 @@ app.get('/cinema', (req, res) => {
     res.render('cinema/cinema')
 })
 
-app.listen(3000, () => {
+app.listen(port, () => {
     console.log('listening to port 3000');
 })
