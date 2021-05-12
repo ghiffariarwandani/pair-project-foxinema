@@ -19,7 +19,7 @@
     "express-session": "^1.16.2",
     "flash": "^1.1.0",
     "flash-express": "git://github.com/deveshgoyal/flash-express.git",
-    "nodemailer": "^6.3.0",
+    "nodemailer": "^6.4.16",
     "pg": "^7.12.0",
     "req-flash": "0.0.3",
     "sequelize": "^5.12.1"
